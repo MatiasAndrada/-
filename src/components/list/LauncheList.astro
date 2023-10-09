@@ -1,0 +1,43 @@
+---
+import LaunchCard from "../cards/LaunchCard.astro";
+
+const { list } = Astro.props;
+---
+<ul class="launch-list">
+  {
+    list.map((rocket) => (
+      <LaunchCard
+        id={rocket.id}
+        img={rocket.links.patch.small}
+        name={rocket.name}
+        launch_date_utc={rocket.date_utc}
+        launch_success={rocket.success}
+      />
+    ))
+  }
+</ul>
+
+<style>
+  .launch-list {
+    list-style: none;
+    padding: 0;
+    margin: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    height: auto;
+  }
+
+  @media (max-width: 768px) {
+    .launch-list .LaunchCard {
+      flex-basis: calc(50% - 2rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .launch-list .LaunchCard {
+      flex-basis: 100%;
+    }
+  }
+</style>

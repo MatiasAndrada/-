@@ -1,0 +1,28 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import CapsuleList from "../../components/list/CapsuleList.astro";
+import { getCapsules } from "../../services/api.ts";
+import BackButton from "../../components/buttons/BackButton.astro";
+const Capsules = await getCapsules();
+---
+
+<Layout title="Capsules">
+  <div class="bg py-8">
+    <div class="container w-2/3 mx-auto text-start">
+      <BackButton />
+      <h1 class="mt-4 text-4xl font-bold text-white">Capsules</h1>
+      <p class="mt-4 first-letter:text-lg text-slate-300">
+        Here you can find all the Capsules.
+      </p>
+    </div>
+  </div>
+  <div class="mt-4">
+    <CapsuleList list={Capsules} />
+  </div>
+</Layout>
+
+<style>
+  .bg {
+    background-image: var(--accent-violet-black);
+  }
+</style>

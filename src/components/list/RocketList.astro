@@ -1,0 +1,43 @@
+---
+import RocketCard from "../cards/RocketCard.astro";
+
+const { list } = Astro.props;
+---
+
+<ul class="launch-list d-flex flex-wrap">
+  {
+    list.map((rocket) => (
+      <RocketCard
+        id={rocket.id}
+        name={rocket.name}
+        img={rocket.flickr_images[0]}
+        first_flight={rocket.first_flight}
+        active={rocket.active}
+      />
+    ))
+  }
+</ul>
+
+<style>
+  .launch-list {
+    list-style: none;
+    padding: 0;
+    margin: 1em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  @media (max-width: 768px) {
+    .launch-list .LaunchCard {
+      flex-basis: calc(50% - 2rem);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .launch-list .LaunchCard {
+      flex-basis: 100%;
+    }
+  }
+</style>

@@ -1,0 +1,14 @@
+---
+const { page } = Astro.props;
+---
+
+<a
+  class="w-fit bg-gradient text-white font-bold hover:scale-105 py-2 px-4 rounded-full"
+  href={page}>Prev page</a
+>
+
+<style>
+    .bg-gradient{
+      background-image: var(--accent-blue-white);
+    }
+  </style>

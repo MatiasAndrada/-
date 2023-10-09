@@ -1,0 +1,25 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import BackButton from "../../components/buttons/BackButton.astro";
+import { type Core } from "../../types/api/api-core"
+import CoreDetails from "../../components/details/CoreDetails.astro";
+import {getCoreById } from "../../services/api"
+import { getStaticRoutesForCores } from "../../services/getStaticRoutes";
+
+const {id} = Astro.params;
+let core: Core = await getCoreById(id);
+
+
+export async function getStaticPaths() {
+  return await getStaticRoutesForCores();
+}
+---
+<Layout title={`Core ${core?.serial}`}>
+  <div class="container mx-auto px-4 py-8 text-slate-300">
+    <div class="ml-6 mb-6">
+  <BackButton />
+    </div>
+  <CoreDetails core={core} />
+  </div>
+
+</Layout>

@@ -1,0 +1,71 @@
+---
+import { TwitterLogo, Image, Person, Link2, Rocket } from "@astropub/icons";
+interface Props {
+  links: {
+    website: string;
+    flickr: string;
+    twitter: string;
+    elon_twitter: string;
+  };
+}
+
+const { links } = Astro.props;
+---
+
+<footer class=" bg-violet-950 w-full p-2">
+  <div class="container mx-auto flex justify-between items-center">
+    <!-- Logos de la aplicación -->
+
+    <img src="/rocket.svg" alt="" class="w-14 md:w-16 lg:w-18" />
+
+    <!-- Enlaces a la derecha -->
+
+    <ul class="list-none pl-5 mt-2 flex flex-row flex-wrap gap-4 m-1">
+      <li class="ml-4">
+        <a
+          href={links.website}
+          class="text-white md:text-md lg:text-lg hover:underline flex items-center transition-transform transform-gpu hover:scale-105"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Link2 class="mr-2 w-6 md:w-10" />
+           Website
+        </a>
+      </li>
+      <li class="ml-4">
+        <a
+          href={links.flickr}
+          class="text-white md:text-md lg:text-lg hover:underline flex items-center transition-transform transform-gpu hover:scale-105"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Image class="mr-2 w-6 md:w-10" />
+           Flickr
+        </a>
+      </li>
+
+      <li class="ml-4">
+        <a
+          href={links.twitter}
+          class="text-white md:text-md lg:text-lg hover:underline flex items-center transition-transform transform-gpu hover:scale-105"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <TwitterLogo class="mr-2 w-6 md:w-10" />
+           Twitter
+        </a>
+      </li>
+      <li class="ml-4">
+        <a
+          href={links.elon_twitter}
+          class="text-white md:text-md lg:text-lg hover:underline flex items-center transition-transform transform-gpu hover:scale-105"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Person class="mr-2 w-6 md:w-10" />
+           Elon Musk's Twitter
+        </a>
+      </li>
+    </ul>
+  </div>
+</footer>
