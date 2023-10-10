@@ -18,7 +18,16 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
     
-    - name: Copy dist to deploy
+    - name: Clear deploy branch
+      run: |
+        git checkout deploy
+        git rm -r dist/
+        git commit -m "Remove previous dist content from deploy branch"
+        git push origin deploy
+        git checkout master
+      working-directory: ${{ github.workspace }}
+
+    - name: Copy dist contents to deploy
       run: |
         mkdir -p deploy
         cp -r dist/* deploy/
@@ -28,6 +37,9 @@ jobs:
       run: |
         git config user.name "GitHub Actions"
         git config user.email "actions@github.com"
-        git add deploy
-        git commit -m "Update deploy branch with changes from dist"
+        git checkout deploy
+        git add .
+        git commit -m "Update deploy branch with contents from dist"
         git push origin deploy
+        git checkout master
+      working-directory: ${{ github.workspace }}
