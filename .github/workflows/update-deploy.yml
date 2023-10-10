@@ -1,0 +1,28 @@
+name: Update Deploy Branch
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    - name: Copy dist to deploy
+      run: |
+        mkdir -p deploy
+        cp -r dist/* deploy/
+      working-directory: ${{ github.workspace }}
+    
+    - name: Commit and push changes
+      run: |
+        git config user.name "GitHub Actions"
+        git config user.email "actions@github.com"
+        git add deploy
+        git commit -m "Update deploy branch with changes from dist"
+        git push origin deploy

@@ -30,18 +30,18 @@ async function getLaunches() {
       },
       body: JSON.stringify({
         query: {
-          //filtered launches isn't image.links.patch.small and large null
-          "links.patch.small": { $ne: null },
-          "links.patch.large": { $ne: null },
-          
-        },
-        options: {
-          sort: {
-            flight_number: "desc",
+            //filtered launches isn't image.links.patch.small and large null
+            "links.patch.small": { $ne: null },
+            "links.patch.large": { $ne: null },
+            
           },
-          limit: 1000,
-        },
-      })
+          options: {
+            sort: {
+              flight_number: "desc",
+            },
+            limit: 1000,
+          },
+        })
     });
     if (!res.ok) {
       throw new Error("La solicitud no fue exitosa.");
