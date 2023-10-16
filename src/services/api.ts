@@ -21,8 +21,17 @@ async function getCompany() {
     throw error; // Puedes manejar el error o relanzarlo según tus necesidades
   }
 }
-async function getLaunches() {
+//puede tomar dos valores como argumento desc y asc
+class LaunchQueryParams {
+  order?: string = "asc";
+  page?: number = 0;
+  limit?: number = 10;
+}
+
+async function getLaunches(params: LaunchQueryParams = new LaunchQueryParams()) {
   try {
+    const { order, limit, page } = params;
+
     const res = await fetch(`${BASE_URL}/launches/query`, {
       method: "POST",
       headers: {
@@ -30,25 +39,25 @@ async function getLaunches() {
       },
       body: JSON.stringify({
         query: {
-            //filtered launches isn't image.links.patch.small and large null
-            "links.patch.small": { $ne: null },
-            "links.patch.large": { $ne: null },
-            
+          "links.patch.small": { $ne: null },
+          "links.patch.large": { $ne: null },
+        },
+        options: {
+          sort: {
+            flight_number: order,
           },
-          options: {
-            sort: {
-              flight_number: "desc",
-            },
-            limit: 1000,
-          },
-        })
+          pagination: true,
+          page: page,
+          limit: limit,
+        },
+      })
     });
+
     if (!res.ok) {
       throw new Error("La solicitud no fue exitosa.");
     }
-    const { docs: launches } = (await res.json()) as Launches;
 
-    console.log("🦇 ~ file: api.ts:54 ~ getLaunches ~ launches:", launches)
+    const launches = (await res.json()) as Launches;
     return launches;
 
   } catch (error) {
@@ -56,6 +65,8 @@ async function getLaunches() {
     throw error;
   }
 }
+
+
 
 
 async function getLaunchById(id: string) {

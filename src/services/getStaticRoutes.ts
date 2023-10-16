@@ -2,14 +2,15 @@ import { getLaunches, getCores, getCapsules, getRockets } from "./api";
 
 
 
-export async function getStaticRoutesForLaunches(){
+export async function getStaticRoutesForLaunches() {
     try {
-    const launches = await getLaunches();
-    const ids_launches = launches.map((launch) => ({
-        params: { id: launch.id.toString() },
-    })
-    );
-    return ids_launches;
+
+        const { docs: launches } = await getLaunches({ limit: 1000 })
+        const ids_launches = launches.map((launch) => ({
+            params: { id: launch.id.toString() },
+        })
+        );
+        return ids_launches;
     }
     catch (error) {
         console.error("Error en la solicitud:", error);
