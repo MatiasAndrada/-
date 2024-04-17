@@ -1,4 +1,4 @@
-import { type Doc, type Launches } from "../types/api/api-launches";
+import { type Launch, type LaunchesPages } from "../types/api/api-launches";
 import { type Company } from "../types/api/api-company";
 import { type Rocket } from "../types/api/api-rocket";
 import { type Core } from "../types/api/api-core";
@@ -57,7 +57,7 @@ async function getLaunches(params: LaunchQueryParams = new LaunchQueryParams()) 
       throw new Error("La solicitud no fue exitosa.");
     }
 
-    const launches = (await res.json()) as Launches;
+    const launches = (await res.json()) as LaunchesPages;
     return launches;
 
   } catch (error) {
@@ -74,7 +74,7 @@ async function getLaunchById(id: string) {
     const res = await fetch(`${BASE_URL}/launches/${id}`);
     if (!res.ok) {
     }
-    const launch = (await res.json()) as Doc;
+    const launch = (await res.json()) as Launch;
     return launch;
 
   } catch (error) {
@@ -89,7 +89,7 @@ async function getNextLaunch() {
     const res = await fetch(`${BASE_URL}/launches/next`);
     if (!res.ok) {
     }
-    const launch = (await res.json()) as Doc;
+    const launch = (await res.json()) as Launch;
     return launch;
 
   } catch (error) {

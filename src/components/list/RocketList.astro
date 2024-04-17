@@ -4,7 +4,7 @@ import RocketCard from "../cards/RocketCard.astro";
 const { list } = Astro.props;
 ---
 
-<ul class="launch-list d-flex flex-wrap">
+<ul class="launch-list flex flex-col flex-wrap">
   {
     list.map((rocket) => (
       <RocketCard
@@ -19,14 +19,11 @@ const { list } = Astro.props;
 </ul>
 
 <style>
-  .launch-list {
+  .launch-list {'
+  height: 80vh;
+    margin: 1em;
     list-style: none;
     padding: 0;
-    margin: 1em;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
   }
 
   @media (max-width: 768px) {

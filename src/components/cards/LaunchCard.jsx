@@ -1,6 +1,3 @@
-import React from 'react';
-
-
 const LaunchCard = ({ id, name, img, launch_date_utc, launch_success }) => {
   const formattedDate = launch_date_utc
     ? new Date(launch_date_utc).toLocaleDateString()
@@ -10,7 +7,12 @@ const LaunchCard = ({ id, name, img, launch_date_utc, launch_success }) => {
     <>
       <li className="link-card">
         <a href={`/launches/${id}`} className="card-link">
-          <img className="card-image" src={img} alt={name} />
+          <img
+            className="card-image"
+            src={img}
+            alt={name}
+            transition:name="img-launch"
+          />
           <div className="card-content">
             <div className="info">
               <h2 className="text-white text-md md:text-xl">{name}</h2>
@@ -26,7 +28,8 @@ const LaunchCard = ({ id, name, img, launch_date_utc, launch_success }) => {
           </div>
         </a>
       </li>
-      <style>{`
+      <style>
+        {`
   .link-card {
     list-style: none;
     display: flex;
@@ -144,7 +147,5 @@ const LaunchCard = ({ id, name, img, launch_date_utc, launch_success }) => {
     </>
   );
 };
-
-
 
 export default LaunchCard;

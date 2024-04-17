@@ -1,12 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { getLaunches } from '../../services/api';
-import LaunchCard from '../cards/LaunchCard.jsx';
+import React, { useState, useEffect, useRef } from "react";
+import { getLaunches } from "../../services/api";
+import LaunchCard from "../cards/LaunchCard.jsx";
+import LaunchListSkeleton from "../skeletons/LaunchList.astro";
 
 const LaunchesList = () => {
   const [list, setList] = useState([]);
-  const [order, setOrder] = useState('asc');
+  const [order, setOrder] = useState("asc");
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  console.log(loading);
   const [error, setError] = useState(null);
   const [hasNextPage, setHasNextPage] = useState(true);
   const limit = 10;
@@ -51,9 +53,9 @@ const LaunchesList = () => {
       loadMore();
     }
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [page, order]);
 
@@ -65,38 +67,52 @@ const LaunchesList = () => {
 
   return (
     <div ref={containerRef}>
-      <h3 className='text-lg text-white text-center my-4'>Loaded pages: {page - 1}</h3>
+      <h3 className="text-lg text-white text-center my-4">
+        Loaded pages: {page - 1}
+      </h3>
       {error && <p>Error: {error.message}</p>}
-      <div className='w-full flex flex-col sm:flex-row justify-center items-center sm:space-x-10'>
-        <h3 className='text-lg text-white'>Order:</h3>
+      <div className="w-full flex flex-col sm:flex-row justify-center items-center sm:space-x-10">
+        <h3 className="text-lg text-white">Order:</h3>
         <button
-          className={`rounded-full p-2 ${order === 'asc' ? 'bg-blue-500 text-white' : 'bg-slate-400 text-white'} mt-2 sm:mt-0
+          className={`rounded-full p-2 ${
+            order === "asc"
+              ? "bg-blue-500 text-white"
+              : "bg-slate-400 text-white"
+          } mt-2 sm:mt-0
           w-fit
           `}
-          onClick={() => handleOrderChange('asc')}
+          onClick={() => handleOrderChange("asc")}
         >
           Ascendant
         </button>
         <button
-          className={`rounded-full p-2 ${order === 'desc' ? 'bg-blue-500 text-white' : 'bg-slate-400 text-white'} mt-2 sm:mt-0 w-fit`}
-          onClick={() => handleOrderChange('desc')}
+          className={`rounded-full p-2 ${
+            order === "desc"
+              ? "bg-blue-500 text-white"
+              : "bg-slate-400 text-white"
+          } mt-2 sm:mt-0 w-fit`}
+          onClick={() => handleOrderChange("desc")}
         >
           Descendant
         </button>
       </div>
 
-      <ul className='launch-list'>
-        {list.map((rocket) => (
-          <LaunchCard
-            key={rocket.id}
-            id={rocket.id}
-            img={rocket.links.patch.small}
-            name={rocket.name}
-            launch_date_utc={rocket.date_utc}
-            launch_success={rocket.success}
-          />
-        ))}
-      </ul>
+      {loading ? (
+        <h2 className="text-white text-center mt-8">LOADINGs</h2>
+      ) : (
+        <ul className="launch-list">
+          {list.map((rocket) => (
+            <LaunchCard
+              key={rocket.id}
+              id={rocket.id}
+              img={rocket.links.patch.small}
+              name={rocket.name}
+              launch_date_utc={rocket.date_utc}
+              launch_success={rocket.success}
+            />
+          ))}
+        </ul>
+      )}
       <style>
         {`
           .launch-list {

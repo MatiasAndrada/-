@@ -1,7 +1,7 @@
 import { Rockets } from "./api-rocket";
 
-export type Launches = {
-    docs: Doc[];
+export type LaunchesPages = {
+    docs: Launch[];
     totalDocs: number;
     offset: number;
     limit: number;
@@ -14,7 +14,7 @@ export type Launches = {
     nextPage: number;
 }
 
-export type Doc = {
+export type Launch = {
     fairings: Fairings | null;
     links: Links;
     static_fire_date_utc: Date | null;

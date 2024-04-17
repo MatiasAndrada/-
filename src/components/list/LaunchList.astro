@@ -1,0 +1,31 @@
+---
+import LaunchCard from "../cards/LaunchCard.astro";
+import { getLaunches } from "../../services/api";
+
+//const { page } = Astro.props;
+
+const { docs: list, page, totalPages } = await getLaunches();
+---
+
+<div>
+  <h3 class="text-lg text-white text-center my-4">
+    Loaded pages: {page} / {totalPages}
+  </h3>
+
+  <div
+    class="w-full flex flex-col flex-wrap gap-4 sm:flex-row justify-center items-center sm:space-x-10"
+  >
+    {
+      list.map((rocket) => (
+        <LaunchCard
+          key={rocket.id}
+          id={rocket.id}
+          img={rocket.links.patch.small}
+          name={rocket.name}
+          launch_date_utc={rocket.date_utc}
+          launch_success={rocket.success}
+        />
+      ))
+    }
+  </div>
+</div>
