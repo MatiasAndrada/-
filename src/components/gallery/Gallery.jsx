@@ -1,12 +1,8 @@
 import React, { useState } from "react";
 
-
 const Gallery = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [galleryImages, setGalleryImages] = useState([]);
-
-
-
 
   const handleImageClick = (imageUrl) => {
     setSelectedImage(imageUrl);

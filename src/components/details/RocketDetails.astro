@@ -1,11 +1,11 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import Link from "../ui/Link.astro";
 import { type Rocket } from "../../types/api/api-rocket";
 
 let { rocket: Rocket } = Astro.props;
 let {
   name,
-  type,
+  /*   type, */
   active,
   country,
   company,
@@ -25,239 +25,247 @@ let {
   payload_weights,
   wikipedia,
 } = Rocket;
+const formatedDescription =
+  description.slice(-1) !== "." ? description + "." : description;
 ---
 
-<Layout title="Rocket details">
+<div
+  class="border border-gray-300 border-t-0 rounded-md shadow-md bg-dark text-white"
+>
   <div
-    class="p-4 border border-gray-300 rounded-md shadow-md bg-dark text-slate-300"
+    class="min-w-full flex flex-col sm:flex-row items-center gap-6 justify-around my-4"
   >
-    <h2
-      class="text-5xl text-center md:text-start font-semibold ml-6 text-white"
-    >
-      Rocket <span class="text-slate-300">{name}</span>
-    </h2>
-
-    <div
-      class="min-w-full flex flex-col sm:flex-row items-center gap-6 justify-around my-4"
-    >
-      <div class="w-1/3 md:ml-6 text-center sm:text-start">
-        <h3 class="text-xl md:text-2xl font-semibold text-white mb-2">
-          Information:
-        </h3>
-        <div class="text-white-400">
-          <p class="text-base md:text-lg">
-            State:
-            {
-              active ? (
-                <span class="text-green-500  underline">Active</span>
-              ) : (
-                <span class="text-red-500  underline">Inactive</span>
-              )
-            }
-          </p>
-          <p class="text-base md:text-lg">Company: {company}</p>
-          <p class="text-base md:text-lg">First Flight: {first_flight}</p>
-          <p class="text-base md:text-lg">Country: {country}</p>
+    <div class="md:w-1/3 md:ml-6 text-center sm:text-start">
+      <h3 class="text-xl md:text-2xl font-semibold mb-2">Information:</h3>
+      <div>
+        <p class="md:text-lg">
+          State:
           {
-            success_rate_pct < 45 ? (
-              <p class="text-base md:text-lg">
-                Success Rate:{" "}
-                <span class="text-red-500">{success_rate_pct}%</span>
-              </p>
-            ) : success_rate_pct < 75 ? (
-              <p class="text-base md:text-lg">
-                Success Rate:{" "}
-                <span class="text-yellow-500">{success_rate_pct}%</span>
-              </p>
+            active ? (
+              <span class="text-green-500  underline">Active</span>
             ) : (
-              <p class="text-base md:text-lg">
-                Success Rate:{" "}
-                <span class="text-green-500">{success_rate_pct}%</span>
-              </p>
+              <span class="text-red-500  underline">Inactive</span>
             )
           }
-        </div>
-      </div>
-
-      <!-- Columna de descripción -->
-      <div class="w-2/3 flex flex-col gap-5 items-center">
-        <h3 class="text-xl md:text-2xl font-semibold text-white md:p-8">
-          Description:
-          <span class="text-base md:text-lg text-slate-300">
-            {description}
+        </p>
+        <p class="md:text-lg">
+          Company:
+          <span class="text-slate-200">
+            {company}
           </span>
-        </h3>
-        <a href={wikipedia} target="_blank" rel="noopener noreferrer"
-          ><button
-            class="bg-slate-900 hover:bg-slate-800 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow"
-          >
-            Wikipedia
-          </button></a
-        >
+        </p>
+        <p class="md:text-lg">
+          First Flight:
+
+          <span class="text-slate-200">
+            {first_flight}
+          </span>
+        </p>
+
+        <p class="md:text-lg">
+          Country:
+          <span class="text-slate-200">
+            {country}
+          </span>
+        </p>
+        {
+          success_rate_pct < 45 ? (
+            <p class=" md:text-lg">
+              Success Rate:{" "}
+              <span class="text-red-500">{success_rate_pct}%</span>
+            </p>
+          ) : success_rate_pct < 75 ? (
+            <p class="md:text-lg">
+              Success Rate:{" "}
+              <span class="text-yellow-500">{success_rate_pct}%</span>
+            </p>
+          ) : (
+            <p class=" md:text-lg">
+              Success Rate:{" "}
+              <span class="text-green-500">{success_rate_pct}%</span>
+            </p>
+          )
+        }
       </div>
     </div>
-    {/*Listas de detalles */}
-    <div
-      class="min-w-full flex sm:flex-row flex-wrap items-center gap-6 justify-around my-4"
-    >
-      <h3 class="text-xl md:text-2xl font-semibold text-white mb-2">
-        Details:
+
+    <!-- Columna de descripción -->
+    <div class="w-2/3 flex flex-col gap-5 items-center">
+      <h3
+        class="text-xl md:text-2xl text-center sm:text-start font-semibold text-white md:p-8"
+      >
+        Description:
+        <span class="text-lg md:text-xl text-slate-200">
+          {formatedDescription}
+        </span>
       </h3>
-      <div class="mt-2">
-        <h3 class="text-lg font-semibold text-white">- Rocket Details:</h3>
-        <ul class="list-disc pl-4 text-white">
-          <li>
-            Height: <span class="text-slate-300"
-              >{height.meters} meters / {height.feet} feet</span
-            >
-          </li>
-          <li>
-            Diameter: <span class="text-slate-300"
-              >{diameter.meters} meters / {diameter.feet} feet</span
-            >
-          </li>
-          <li>
-            Mass: <span class="text-slate-300">{mass.kg} kg / {mass.lb} lb</span
-            >
-          </li>
-          <li>Stages: <span class="text-slate-300">{stages}</span></li>
-          <li>Boosters: <span class="text-slate-300">{boosters}</span></li>
-          <li>
-            Cost per Launch: <span class="text-slate-300"
-              >${cost_per_launch}</span
-            >
-          </li>
-        </ul>
+      <div
+        class="bg-slate-900 hover:bg-slate-800 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow"
+      >
+        <Link to={wikipedia}> Wikipedia </Link>
       </div>
-      <div class="mt-2">
-        <h3 class="text-lg font-semibold text-white">- Engines:</h3>
-        <ul class="list-disc pl-4 text-white">
-          <li>Type: <span class="text-slate-300">{engines.type}</span></li>
-          <li>
-            Version: <span class="text-slate-300">{engines.version}</span>
-          </li>
-          <li>Layout: <span class="text-slate-300">{engines.layout}</span></li>
-          <li>Thrust vacuum:</li>
-          <li>
-            Engine Loss Max: <span class="text-slate-300"
-              >{engines.engine_loss_max}</span
-            >
-          </li>
-          <li>
-            Propellant 1: <span class="text-slate-300"
-              >{engines.propellant_1}</span
-            >
-          </li>
-          <li>
-            Propellant 2: <span class="text-slate-300"
-              >{engines.propellant_2}</span
-            >
-          </li>
-          <li>
-            Thrust to Weight: <span class="text-slate-300"
-              >{engines.thrust_to_weight}</span
-            >
-          </li>
-        </ul>
-      </div>
-      <div class="mt-2">
-        <h3 class="text-lg font-semibold text-white">- Payload Weights:</h3>
-        <ul class="list-disc pl-4 text-white">
-          {
-            payload_weights.map((payload, index) => (
-              <li>
-                {payload.name}:{" "}
-                <span class="text-slate-300">
-                  {payload.kg} kg / {payload.lb} lb
-                </span>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-
-      {
-        landing_legs.number > 0 && (
-          <>
-            <h3 class="text-lg font-semibold text-white mt-2">
-              - Landing Legs:
-            </h3>
-            <ul class="list-disc pl-4 text-white">
-              <li>Number: <span class="text-slate-300">{landing_legs.number} </span></li>
-              <li>Material: <span class="text-slate-300">{landing_legs.material}</span></li>
-            </ul>
-          </>
-        )
-      }
     </div>
   </div>
-
-  {/*Icon */}
-  <div class="overflow-x-auto my-4 bg-slate-800 p-2 rounded-lg">
-    <h3
-      class="text-2xl font-semibold text-white text-center px-4 py-2 my-3 bg-slate-900 rounded-lg"
-    >
-      First and Second Stage
-    </h3>
-    <div class="table-responsive">
-      <table class="min-w-full border-collapse table-auto text-white">
-        <thead>
-          <tr>
-            <th class="border-b-2 p-2 text-center">Stage</th>
-            <th class="border-b-2 p-2 text-center">Thrust vacuum kN/lbf</th>
-            <th class="border-b-2 p-2 text-center">Reusable</th>
-            <th class="border-b-2 p-2 text-center">Engines</th>
-            <th class="border-b-2 p-2 text-center">Fuel Amount Tons</th>
-            <th class="border-b-2 p-2 text-center">Burn Time Sec</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="border-b p-2 text-center">1</td>
-            <td class="border-b p-2 text-center">
-              {first_stage.thrust_vacuum.kN} / {first_stage.thrust_vacuum.lbf}
-            </td>
-            <td class="border-b p-2 text-center">
-              {
-                first_stage.reusable ? (
-                  <span class="text-green-500 font-semibold">Yes</span>
-                ) : (
-                  <span class="text-red-500 font-semibold">No</span>
-                )
-              }
-            </td>
-            <td class="border-b p-2 text-center">{first_stage.engines}</td>
-            <td class="border-b p-2 text-center">
-              {first_stage.fuel_amount_tons} tons
-            </td>
-            <td class="border-b p-2 text-center"
-              >{first_stage.burn_time_sec} sec</td
-            >
-          </tr>
-          <tr>
-            <td class="border-b p-2 text-center">2</td>
-            <td class="border-b p-2 text-center">
-              {second_stage.thrust.kN} / {second_stage.thrust.lbf}
-            </td>
-            <td class="border-b p-2 text-center">
-              {
-                first_stage.reusable ? (
-                  <span class="text-green-500 font-semibold">Yes</span>
-                ) : (
-                  <span class="text-red-500 font-semibold">No</span>
-                )
-              }
-            </td>
-            <td class="border-b p-2 text-center">{second_stage.engines}</td>
-            <td class="border-b p-2 text-center">
-              {second_stage.fuel_amount_tons} tons
-            </td>
-            <td class="border-b p-2 text-center"
-              >{second_stage.burn_time_sec} sec</td
-            >
-          </tr>
-        </tbody>
-      </table>
+  {/*Listas de detalles */}
+  <div
+    class="min-w-full flex sm:flex-row flex-wrap items-center gap-6 justify-around my-4"
+  >
+    <h3 class="text-xl md:text-2xl font-semibold text-white mb-2">Details:</h3>
+    <div class="mt-2">
+      <h3 class="text-lg font-semibold text-white">- Rocket Details:</h3>
+      <ul class="list-disc pl-4 text-white">
+        <li>
+          Height: <span class="text-slate-200"
+            >{height.meters} meters / {height.feet} feet</span
+          >
+        </li>
+        <li>
+          Diameter: <span class="text-slate-200"
+            >{diameter.meters} meters / {diameter.feet} feet</span
+          >
+        </li>
+        <li>
+          Mass: <span class="text-slate-200">{mass.kg} kg / {mass.lb} lb</span>
+        </li>
+        <li>Stages: <span class="text-slate-200">{stages}</span></li>
+        <li>Boosters: <span class="text-slate-200">{boosters}</span></li>
+        <li>
+          Cost per Launch: <span class="text-slate-200">${cost_per_launch}</span
+          >
+        </li>
+      </ul>
     </div>
+    <div class="mt-2">
+      <h3 class="text-lg font-semibold text-white">- Engines:</h3>
+      <ul class="list-disc pl-4 text-white">
+        <li>Type: <span class="text-slate-200">{engines.type}</span></li>
+        <li>
+          Version: <span class="text-slate-200">{engines.version}</span>
+        </li>
+        <li>Layout: <span class="text-slate-200">{engines.layout}</span></li>
+        <li>Thrust vacuum:</li>
+        <li>
+          Engine Loss Max: <span class="text-slate-200"
+            >{engines.engine_loss_max}</span
+          >
+        </li>
+        <li>
+          Propellant 1: <span class="text-slate-200"
+            >{engines.propellant_1}</span
+          >
+        </li>
+        <li>
+          Propellant 2: <span class="text-slate-200"
+            >{engines.propellant_2}</span
+          >
+        </li>
+        <li>
+          Thrust to Weight: <span class="text-slate-200"
+            >{engines.thrust_to_weight}</span
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="mt-2">
+      <h3 class="text-lg font-semibold text-white">- Payload Weights:</h3>
+      <ul class="list-disc pl-4 text-white">
+        {
+          payload_weights.map((payload, index) => (
+            <li>
+              {payload.name}:{" "}
+              <span class="text-slate-200">
+                {payload.kg} kg / {payload.lb} lb
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    {
+      landing_legs.number > 0 && (
+        <>
+          <h3 class="text-lg font-semibold text-white mt-2">- Landing Legs:</h3>
+          <ul class="list-disc pl-4 text-white">
+            <li>
+              Number: <span class="text-slate-200">{landing_legs.number} </span>
+            </li>
+            <li>
+              Material:{" "}
+              <span class="text-slate-200">{landing_legs.material}</span>
+            </li>
+          </ul>
+        </>
+      )
+    }
   </div>
-</Layout>
+</div>
+
+{/*Icon */}
+<div class="overflow-x-auto my-4 bg-slate-800 p-2 rounded-lg">
+  <h3
+    class="text-2xl font-semibold text-white text-center px-4 py-2 my-3 bg-slate-900 rounded-lg"
+  >
+    First and Second Stage
+  </h3>
+  <div class="table-responsive">
+    <table class="min-w-full border-collapse table-auto text-white">
+      <thead>
+        <tr>
+          <th class="border-b-2 p-2 text-center">Stage</th>
+          <th class="border-b-2 p-2 text-center">Thrust vacuum kN/lbf</th>
+          <th class="border-b-2 p-2 text-center">Reusable</th>
+          <th class="border-b-2 p-2 text-center">Engines</th>
+          <th class="border-b-2 p-2 text-center">Fuel Amount Tons</th>
+          <th class="border-b-2 p-2 text-center">Burn Time Sec</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="border-b p-2 text-center">1</td>
+          <td class="border-b p-2 text-center">
+            {first_stage.thrust_vacuum.kN} / {first_stage.thrust_vacuum.lbf}
+          </td>
+          <td class="border-b p-2 text-center">
+            {
+              first_stage.reusable ? (
+                <span class="text-green-500 font-semibold">Yes</span>
+              ) : (
+                <span class="text-red-500 font-semibold">No</span>
+              )
+            }
+          </td>
+          <td class="border-b p-2 text-center">{first_stage.engines}</td>
+          <td class="border-b p-2 text-center">
+            {first_stage.fuel_amount_tons} tons
+          </td>
+          <td class="border-b p-2 text-center"
+            >{first_stage.burn_time_sec} sec</td
+          >
+        </tr>
+        <tr>
+          <td class="border-b p-2 text-center">2</td>
+          <td class="border-b p-2 text-center">
+            {second_stage.thrust.kN} / {second_stage.thrust.lbf}
+          </td>
+          <td class="border-b p-2 text-center">
+            {
+              first_stage.reusable ? (
+                <span class="text-green-500 font-semibold">Yes</span>
+              ) : (
+                <span class="text-red-500 font-semibold">No</span>
+              )
+            }
+          </td>
+          <td class="border-b p-2 text-center">{second_stage.engines}</td>
+          <td class="border-b p-2 text-center">
+            {second_stage.fuel_amount_tons} tons
+          </td>
+          <td class="border-b p-2 text-center"
+            >{second_stage.burn_time_sec} sec</td
+          >
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

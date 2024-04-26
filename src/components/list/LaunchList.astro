@@ -7,13 +7,13 @@ import { getLaunches } from "../../services/api";
 const { docs: list, page, totalPages } = await getLaunches();
 ---
 
-<div>
-  <h3 class="text-lg text-white text-center my-4">
+<div class="mt-4">
+  <h3 class="text-lg text-white text-center my-1">
     Loaded pages: {page} / {totalPages}
   </h3>
 
   <div
-    class="w-full flex flex-col flex-wrap gap-4 sm:flex-row justify-center items-center sm:space-x-10"
+    class="w-full px-8 flex flex-col flex-wrap gap-8 sm:flex-row justify-evenly items-center"
   >
     {
       list.map((rocket) => (

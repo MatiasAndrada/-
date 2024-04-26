@@ -1,18 +1,16 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import BackButton from "../../components/buttons/BackButton.astro";
-import { getPhotosUrl } from "../../services/api-photos";
-import Gallery from "../../components/gallery/Gallery";
-
-const photos = await getPhotosUrl("spacex");
+import SectionPage from "../../components/ui/SectionPage.astro";
+import Gallery from "../../components/gallery/Gallery.astro";
 ---
 
-<Layout title={`Gallery`}>
-  <div class="flex flex-col justify-center items-center ">
-    <div class="w-fit">
-      <BackButton />
-    </div>
-    <h1 class="text-white text-7xl text-center mb-12">Gallery SpaceX</h1>
+<Layout title="Gallery">
+  <SectionPage
+    title="Gallery SpaceX"
+    description="Here you can see images of different moments"
+    gradientColor="red"
+  />
+  <div class="mt-4">
+    <Gallery />
   </div>
-  <Gallery images={photos} client:idle />
 </Layout>

@@ -1,10 +1,10 @@
 ---
 import RocketCard from "../cards/RocketCard.astro";
-
-const { list } = Astro.props;
+import { getRockets } from "../../services/api";
+const list = await getRockets();
 ---
 
-<ul class="launch-list flex flex-col flex-wrap">
+<ul class="mt-4 launch-list flex gap-6 justify-evenly flex-wrap">
   {
     list.map((rocket) => (
       <RocketCard
@@ -17,24 +17,3 @@ const { list } = Astro.props;
     ))
   }
 </ul>
-
-<style>
-  .launch-list {'
-  height: 80vh;
-    margin: 1em;
-    list-style: none;
-    padding: 0;
-  }
-
-  @media (max-width: 768px) {
-    .launch-list .LaunchCard {
-      flex-basis: calc(50% - 2rem);
-    }
-  }
-
-  @media (max-width: 480px) {
-    .launch-list .LaunchCard {
-      flex-basis: 100%;
-    }
-  }
-</style>

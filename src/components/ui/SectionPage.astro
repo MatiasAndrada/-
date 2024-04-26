@@ -1,0 +1,98 @@
+---
+import BackButton from "../buttons/BackButton.astro";
+
+interface Props {
+  title: string;
+  accentTitle?: string;
+  description?: string;
+  toBack?: string;
+  gradientColor: string;
+}
+
+const { title, accentTitle, description, gradientColor, toBack } = Astro.props;
+const formatedDescription = description
+  ? description.slice(-1) !== "."
+    ? `${description}.`
+    : description
+  : "No description provided";
+---
+
+<div
+  class="py-8"
+  style={`background-image: var(--accent-${gradientColor}-black);`}
+>
+  <div class="container w-2/3 mx-auto text-start">
+    <BackButton to={toBack} />
+    <h1
+      class={`${
+        accentTitle ? "text-slate-200 font-medium" : "text-white font-bold"
+      } mt-4 text-4xl `}
+    >
+      {title}
+      {
+        accentTitle && (
+          <span class="text-6xl font-bold text-white"> {accentTitle} </span>
+        )
+      }
+    </h1>
+
+    <p class="mt-4 first-letter:text-lg text-slate-200">
+      {formatedDescription}
+    </p>
+  </div>
+</div>
+
+<style>
+  :root {
+    --accent-red-white: linear-gradient(45deg, #ff4136, white);
+    --accent-red-black: linear-gradient(45deg, #ff4136, black);
+
+    --accent-pink-white: linear-gradient(45deg, #ff80cc, white);
+    --accent-pink-black: linear-gradient(45deg, #ff80cc, black);
+
+    --accent-purple-white: linear-gradient(45deg, #b10dc9, white);
+    --accent-purple-black: linear-gradient(45deg, #b10dc9, black);
+
+    --accent-deep-purple-white: linear-gradient(45deg, #7209b7, white);
+    --accent-deep-purple-black: linear-gradient(45deg, #7209b7, black);
+
+    --accent-blue-white: linear-gradient(45deg, #0074d9, white);
+    --accent-blue-black: linear-gradient(45deg, #0074d9, black);
+
+    --accent-deep-blue-white: linear-gradient(45deg, #00356a, white);
+    --accent-deep-blue-black: linear-gradient(45deg, #00356a, black);
+
+    --accent-light-blue-white: linear-gradient(45deg, #7fdbff, white);
+    --accent-light-blue-black: linear-gradient(45deg, #7fdbff, black);
+
+    --accent-cyan-white: linear-gradient(45deg, #2ecc40, white);
+    --accent-cyan-black: linear-gradient(45deg, #2ecc40, black);
+
+    --accent-teal-white: linear-gradient(45deg, #39cccc, white);
+    --accent-teal-black: linear-gradient(45deg, #39cccc, black);
+
+    --accent-green-white: linear-gradient(45deg, #2ecc40, white);
+    --accent-green-black: linear-gradient(45deg, #2ecc40, black);
+
+    --accent-lime-white: linear-gradient(45deg, #01ff70, white);
+    --accent-lime-black: linear-gradient(45deg, #01ff70, black);
+
+    --accent-yellow-white: linear-gradient(45deg, #ffdc00, white);
+    --accent-yellow-black: linear-gradient(45deg, #ffdc00, black);
+
+    --accent-orange-white: linear-gradient(45deg, #ff851b, white);
+    --accent-orange-black: linear-gradient(45deg, #ff851b, black);
+
+    --accent-deep-orange-white: linear-gradient(45deg, #ae3f14, white);
+    --accent-deep-orange-black: linear-gradient(45deg, #ae3f14, black);
+
+    --accent-brown-white: linear-gradient(45deg, #af601a, white);
+    --accent-brown-black: linear-gradient(45deg, #af601a, black);
+
+    --accent-blue-grey-white: linear-gradient(45deg, #848fa5, white);
+    --accent-blue-grey-black: linear-gradient(45deg, #848fa5, black);
+
+    --accent-white-black: linear-gradient(45deg, white, black);
+    --accent-black-white: linear-gradient(45deg, black, white);
+  }
+</style>

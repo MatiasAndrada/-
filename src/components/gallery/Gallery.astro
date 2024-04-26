@@ -1,0 +1,60 @@
+---
+import { getPhotosUrl } from "../../services/api-photos";
+
+const { images } = Astro.props;
+let list;
+if (images) {
+  list = images;
+} else {
+  list = await getPhotosUrl();
+}
+---
+
+<script>
+  const imgs = document.querySelectorAll("#img-list");
+  const modal = document.getElementById("modal");
+  const imgSelected = document.getElementById("modal-img") as HTMLImageElement;
+
+  imgs.forEach((elmt) => {
+    elmt.addEventListener("click", (e) => {
+      const imgTarget = e.target as HTMLImageElement;
+      const src = imgTarget.src;
+      imgSelected.src = src;
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    });
+  });
+
+  modal.addEventListener("click", () => {
+    modal.classList.remove("flex");
+    modal.classList.add("hidden");
+    imgSelected.src = "";
+  });
+</script>
+
+<div class="flex flex-wrap justify-center items-center gap-5">
+  {
+    list.map((imageUrl, index) => (
+      <div
+        id="img-list"
+        class={`relative cursor-pointer overflow-hidden transform transition-transform duration-300 hover:scale-105	`}
+        onclick={`handleImageClick('${imageUrl}')`}
+      >
+        <img
+          src={imageUrl}
+          alt={`Image rocket ${index + 1}`}
+          class="w-56 h-56 md:w-80 md:h-80 object-cover rounded-lg "
+        />
+      </div>
+    ))
+  }
+
+  <div
+    id="modal"
+    class="hidden fixed top-0 left-0 w-full h-full justify-center items-center z-50 bg-black bg-opacity-60"
+  >
+    <div class="rounded-lg shadow-xl shadow-blue-950">
+      <img id="modal-img" alt="Selected" class="h-4/5 md:h-[60vh] rounded-lg" />
+    </div>
+  </div>
+</div>

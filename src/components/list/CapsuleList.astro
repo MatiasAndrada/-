@@ -1,16 +1,17 @@
 ---
 import CapsuleCard from "../cards/CapsuleCard.astro";
-
-const { list } = Astro.props;
+import { getCapsules } from "../../services/api";
+const list = await getCapsules();
 ---
-<ul class="launch-list ">
-{
+
+<ul class="launch-list">
+  {
     list.map((capsule) => (
       <CapsuleCard
-      id={capsule.id}
-      serial={capsule.serial}
-      status={capsule.status}
-      last_update={capsule.last_update}
+        id={capsule.id}
+        serial={capsule.serial}
+        status={capsule.status}
+        last_update={capsule.last_update}
       />
     ))
   }

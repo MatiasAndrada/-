@@ -15,8 +15,9 @@ async function getPhotos(query: string) {
   }
 }
 
-async function getPhotosUrl(query: string) {
-  const data = await getPhotos(query);
+async function getPhotosUrl(query?: string) {
+  let searchParam = query ? query : "spaceX";
+  const data = await getPhotos(searchParam);
   const photos = data.photos.photo;
   const photosUrl = photos.map((photo: any) => {
     const { farm, server, id, secret } = photo;

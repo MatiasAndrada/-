@@ -6,9 +6,9 @@ const { name, path } = Astro.props;
 
 <li class="link-card text-white">
   <a href={path} class="glass-effect">
-    <h2>
+    <h2 class="text-center md:text-start">
       {name}
-      <span class="icon">&rarr;</span>
+      <span>&rarr;</span>
     </h2>
   </a>
 </li>
@@ -19,8 +19,7 @@ const { name, path } = Astro.props;
     display: flex;
     padding: 1px;
     border-radius: 7px;
-
-    transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    transition-duration: 250ms;
   }
   .link-card > a {
     width: 100%;
@@ -28,29 +27,32 @@ const { name, path } = Astro.props;
     line-height: 1.4;
     padding: calc(1.5rem - 1px);
     border-radius: 8px;
+    transition-duration: 250ms;
   }
   h2 {
     margin: 0;
     font-weight: 400;
     color: white;
-    font-size: 1.25rem;
+    font-size: 1.6rem;
     transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   }
   span {
     margin-top: 0.5rem;
     margin-bottom: 0;
-  }
-  .link-card:is(:hover, :focus-within) {
-    background-position: 0;
-    background-image: var(--accent-violet-white);
-  }
-  .link-card:is(:hover, :focus-within) h2 {
-    font-weight: 600;
+    transition-duration: 200ms;
   }
   /* Estilos para el efecto de vidrio */
   .glass-effect {
-    backdrop-filter: blur(10px); /* Ajusta la intensidad del desenfoque aquí */
     background-color: #985afd94;
-    transition: background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .glass-effect:is(:hover, :focus-within) {
+    background-color: #8c44ff85;
+  }
+  .link-card:is(:hover, :focus-within) h2 {
+    color: rgb(59, 94, 236);
+    font-weight: 700;
+  }
+  .link-card:is(:hover, :focus-within) span {
+    margin-left: 12px;
   }
 </style>

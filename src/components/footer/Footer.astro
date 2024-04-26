@@ -1,4 +1,6 @@
 ---
+import { Image as AstroImage } from "astro:assets";
+import Link from "../ui/Link.astro";
 import { TwitterLogo, Image, Person, Link2, Rocket } from "@astropub/icons";
 interface Props {
   links: {
@@ -12,24 +14,40 @@ interface Props {
 const { links } = Astro.props;
 ---
 
-<footer class=" bg-violet-950 w-full p-2">
-  <div class="container mx-auto flex justify-between items-center">
+<footer class="fixed bottom-0 bg-violet-950 w-full p-2">
+  <div class="px-12 flex justify-between items-center">
     <!-- Logos de la aplicación -->
-
-    <img src="/rocket.svg" alt="" class="w-14 md:w-16 lg:w-18" />
+    <div class="flex items-center flex-row gap-8">
+      <AstroImage
+        src="/rocket.svg"
+        alt="page icon"
+        class="w-14 md:w-16 lg:w-18"
+        width={54}
+        height={54}
+      />
+      <p class="text-slate-200 md:text-lg lg:text-xl">
+        Developed with Astro framework
+        <br />
+        <span class="text-slate-200"
+          >by: <Link to="https://github.com/MatiasAndrada">
+            @MatiasAndrada
+          </Link>
+        </span>
+      </p>
+    </div>
 
     <!-- Enlaces a la derecha -->
 
-    <ul class="list-none pl-5 mt-2 flex flex-row flex-wrap gap-4 m-1">
-      <li class="ml-4">
+    <ul class="list-none pl-5 mt-2 flex flex-row flex-wrap gap-5 m-1">
+      <li class="ml-4 transition-transform transform-gpu hover:scale-105">
         <a
           href={links.website}
-          class="text-white md:text-md lg:text-lg hover:underline flex items-center transition-transform transform-gpu hover:scale-105"
+          class="text-white md:text-md lg:text-lg hover:underline flex items-center"
           target="_blank"
           rel="noopener noreferrer"
         >
           <Link2 class="mr-2 w-6 md:w-10" />
-           Website
+          Website
         </a>
       </li>
       <li class="ml-4">
@@ -40,7 +58,7 @@ const { links } = Astro.props;
           rel="noopener noreferrer"
         >
           <Image class="mr-2 w-6 md:w-10" />
-           Flickr
+          Flickr
         </a>
       </li>
 
@@ -52,7 +70,7 @@ const { links } = Astro.props;
           rel="noopener noreferrer"
         >
           <TwitterLogo class="mr-2 w-6 md:w-10" />
-           Twitter
+          Twitter
         </a>
       </li>
       <li class="ml-4">
@@ -63,7 +81,7 @@ const { links } = Astro.props;
           rel="noopener noreferrer"
         >
           <Person class="mr-2 w-6 md:w-10" />
-           Elon Musk's Twitter
+          Elon Musk's X
         </a>
       </li>
     </ul>

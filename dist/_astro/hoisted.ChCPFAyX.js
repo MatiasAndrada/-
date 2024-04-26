@@ -1,0 +1,1 @@
+import"./hoisted.MGRYCVo7.js";const i=document.querySelectorAll("#img-list"),e=document.getElementById("modal"),t=document.getElementById("modal-img");i.forEach(s=>{s.addEventListener("click",c=>{const d=c.target.src;t.src=d,e.classList.remove("hidden"),e.classList.add("flex")})});e.addEventListener("click",()=>{e.classList.remove("flex"),e.classList.add("hidden"),t.src=""});

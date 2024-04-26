@@ -1,34 +1,31 @@
 ---
+import { Status } from "../../types/api/api-capsule";
 interface Props {
   id: string;
   serial: string;
   last_update: string;
-  status: string;
+  status: Status;
 }
 
 const { id, serial, last_update, status } = Astro.props;
 
 let statusClass = "bg-gray-500";
-if (status === "active") {
+if (status === Status.Active) {
   statusClass = "bg-green-500";
-} else if (status === "destroyed") {
+} else if (status === Status.Destroyed) {
   statusClass = "bg-red-500";
-} else if (status === "retired") {
-  statusClass = "bg-yellow-500";
-} else if (status === "lost") {
-  statusClass = "bg-red-500";
-} else if (status === "inactive") {
+} else if (status === Status.Retired) {
   statusClass = "bg-gray-500";
-} else if (status === "unknown") {
+} else if (status === Status.Unknown) {
   statusClass = "bg-orange-500";
 }
----a
+---
 
 <li class="link-card">
   <a href={`/capsules/${id}`} class="card-link">
     <div>
       <h2 class="text-xl m-2 text-white">{serial}</h2>
-      <p class="text-lg ml-2 w-2/3 text-slate-300">{last_update}</p>
+      <p class="text-lg ml-2 w-2/3 text-slate-200">{last_update}</p>
     </div>
     <div class="status">
       <p class={`text-lg p-2 rounded-md text-white ${statusClass}`}>
@@ -80,13 +77,9 @@ if (status === "active") {
 
   .link-card:is(:hover, :focus-within) {
     background-position: 0;
-    background-image: var(--accent-violet-white);
+    background-image: var(--accent-purple-white);
   }
 
-  .link-card:is(:hover, :focus-within) h2 {
-    color: var(--accent-violet);
-  }
-  
   @media (max-width: 768px) {
     .link-card {
       width: 45%; /* Ajusta el ancho de la tarjeta para dispositivos medianos */
@@ -96,7 +89,7 @@ if (status === "active") {
     .link-card {
       width: 100%; /* Ocupa todo el ancho en dispositivos pequeños */
     }
-    .status{
+    .status {
       bottom: 0;
       right: 10px;
       top: 10px;

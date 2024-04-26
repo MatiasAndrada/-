@@ -1,0 +1,17 @@
+---
+interface Props {
+  to: string;
+  self?: boolean;
+}
+
+const { to, self } = Astro.props;
+---
+
+<a
+  href={to}
+  target={self ? "_self" : "_blank"}
+  rel={self ? "" : "noopener noreferrer"}
+  class="text-white text-lg font-semibold transition-colors duration-300 hover:text-blue-500 underline"
+>
+  <slot />
+</a>

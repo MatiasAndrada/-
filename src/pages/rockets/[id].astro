@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import BackButton from "../../components/buttons/BackButton.astro";
-import Gallery from "../../components/gallery/Gallery";
+import SectionPage from "../../components/ui/SectionPage.astro";
+import Gallery from "../../components/gallery/Gallery.astro";
 import { type Rocket } from "../../types/api/api-rocket";
 import { getRocketById } from "../../services/api";
 import RocketDetails from "../../components/details/RocketDetails.astro";
@@ -22,16 +22,15 @@ export function getStaticPaths() {
 ---
 
 <Layout title={`Launch ${rocket?.name}`}>
-  <div class="flex flex-col mx-4">
-    <div class="mb-6">
-      <BackButton />
-    </div>
+  <SectionPage
+    title="Rocket Detail"
+    accentTitle={rocket?.name}
+    toBack="/rockets"
+    gradientColor="deep-orange"
+  />
+  <div class="container mx-auto">
     <RocketDetails rocket={rocket} />
-    <h3 class="text-2xl font-semibold text-white ml-8 mb-4">
-      - Rocket gallery
-    </h3>
-    <div class="mt-6">
-      <Gallery images={rocket?.flickr_images} client:idle />
-    </div>
+    <h3 class="mb-4 text-2xl font-semibold text-white">- Rocket gallery</h3>
+    <Gallery images={rocket?.flickr_images} />
   </div>
 </Layout>

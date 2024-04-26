@@ -25,7 +25,7 @@ async function getCompany() {
 class LaunchQueryParams {
   order?: string = "asc";
   page?: number = 0;
-  limit?: number = 10;
+  limit?: number = 200;
 }
 
 async function getLaunches(params: LaunchQueryParams = new LaunchQueryParams()) {

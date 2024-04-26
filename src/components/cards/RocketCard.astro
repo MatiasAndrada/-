@@ -1,9 +1,10 @@
 ---
+import { Image } from "astro:assets";
 interface Props {
   id: string;
   name: string;
   img: string;
-  first_flight: String;
+  first_flight: Date;
   active: boolean;
 }
 
@@ -12,14 +13,14 @@ const { id, name, img, first_flight, active } = Astro.props;
 
 <li class="link-card">
   <a href={`/rockets/${id}`} class="card-link">
-    <img class="card-image" src={img} alt={name} />
+    <Image class="card-image" src={img} alt={name} width={468} height={351} />
     <h2
-      class="absolute top-2 left-2 text-xl p-2 rounded-lg mx-auto bg-black bg-opacity-40 text-white bg-accent"
+      class="absolute top-3 left-3 text-xl p-3 rounded-lg mx-auto bg-black bg-opacity-40 text-white"
     >
       {name}
     </h2>
     <p
-      class="absolute top-2 right-2 text-sm p-2 rounded-lg mx-auto bg-black bg-opacity-40 text-white"
+      class="absolute top-3 right-3 text-sm p-3 rounded-lg mx-auto bg-black bg-opacity-40 text-white"
     >
       {first_flight}
     </p>
@@ -62,8 +63,8 @@ const { id, name, img, first_flight, active } = Astro.props;
 
   .status {
     position: absolute;
-    bottom: 5px;
-    right: 5px;
+    bottom: 8px;
+    right: 8px;
   }
 
   .success {
@@ -92,7 +93,7 @@ const { id, name, img, first_flight, active } = Astro.props;
   .link-card:is(:hover, :focus-within) .bg-accent {
     color: var(--accent-orange);
   }
-  
+
   @media (max-width: 768px) {
     .link-card {
       width: 45%; /* Ajusta el ancho de la tarjeta para dispositivos medianos */
@@ -102,16 +103,16 @@ const { id, name, img, first_flight, active } = Astro.props;
     .link-card {
       width: 100%; /* Ocupa todo el ancho en dispositivos pequeños */
     }
-    .status{
-      bottom: 0;
-      right: 10px;
-      top: 10px;
+    .status {
+      bottom: 12px;
+      right: 12px;
+
       padding: 4px, 8px;
     }
-    .success{
+    .success {
       font-size: 1em;
     }
-    .failure{
+    .failure {
       font-size: 1em;
     }
   }

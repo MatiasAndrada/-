@@ -1,6 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { type Capsule } from "../../types/api/api-capsule";
+import Link from "../ui/Link.astro";
+import { type Capsule, Status } from "../../types/api/api-capsule";
 
 interface Props {
   capsule: Capsule;
@@ -10,37 +11,32 @@ const { capsule } = Astro.props;
 
 const getStatusColor = (status) => {
   switch (status) {
-    case "active":
+    case status === Status.Active:
       return "text-green-500";
-    case "destroyed":
+    case "destroyed" === Status.Destroyed:
       return "text-red-500";
-    case "retired":
+    case status === Status.Retired:
       return "text-yellow-500";
-    case "unknown":
-      return "text-orange-500"; // Puedes asignar otro color si lo deseas
+    case status === Status.Unknown:
+      return "text-orange-500";
     default:
-      return "text-slate-300";
+      return "text-slate-200";
   }
 };
 ---
 
 <Layout title={`capsule ${capsule?.serial}`}>
   <div
-    class="p-4 mx-auto max-w-3xl border border-gray-300 rounded-md shadow-md bg-dark text-slate-300"
+    class="p-4 border border-t-0 border-gray-300 rounded-md shadow-md bg-dark text-white"
   >
-    <h2 class="text-5xl text-center font-semibold ml-6 text-white">
-      capsule <span class="text-slate-300">{capsule.serial}</span>
-    </h2>
     <div
       class="min-w-full flex flex-col sm:flex-row items-center gap-6 justify-around my-4"
     >
       <div class="md:ml-6 text-center sm:text-start">
-        <h3
-          class="text-xl md:text-2xl text-center font-semibold text-white mb-2"
-        >
+        <h3 class="text-xl md:text-2xl text-center font-semibold mb-2">
           Information:
         </h3>
-        <ul class="text-slate-300 list-disc text-center list-inside">
+        <ul class="list-disc text-center list-inside">
           <li>
             Status:{" "}
             <span class={`font-semibold ${getStatusColor(capsule.status)}`}>
@@ -49,38 +45,38 @@ const getStatusColor = (status) => {
           </li>
           <li>
             Last update :{" "}
-            <span class={`text-white`}>
+            <span class={`text-slate-200`}>
               {capsule.last_update || "N/A"}
             </span>
           </li>
           <li>
             Reuse Count:{" "}
-            <span class={`text-white`}>
+            <span class={`text-slate-200`}>
               {capsule.reuse_count}
             </span>
           </li>
           <li>
             Water landings:{" "}
-            <span class={`text-white`}>
+            <span class={`text-slate-200`}>
               {capsule.water_landings}
             </span>
           </li>
           <li>
             land langing:{" "}
-            <span class={`text-white`}>
+            <span class={`text-slate-200`}>
               {capsule.land_landings}
             </span>
           </li>
 
           <li class="text-center">
             Launches:{" "}
-            <span class={`text-white`}>
+            <span class={`text-slate-200`}>
               {
                 capsule.launches.map
                   ? capsule.launches.map((launch) => (
-                      <a class="underline" href={`/launches/${launch}`}>
+                      <Link to={`/launches/${launch}`} self={true}>
                         {launch}
-                      </a>
+                      </Link>
                     ))
                   : "N/A"
               }

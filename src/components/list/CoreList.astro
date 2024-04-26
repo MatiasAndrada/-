@@ -1,7 +1,7 @@
 ---
 import CoreCard from "../cards/CoreCard.astro";
-
-const { list } = Astro.props;
+import { getCores } from "../../services/api";
+const list = await getCores();
 ---
 
 <ul class="launch-list">

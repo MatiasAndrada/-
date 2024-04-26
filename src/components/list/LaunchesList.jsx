@@ -8,7 +8,6 @@ const LaunchesList = () => {
   const [order, setOrder] = useState("asc");
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  console.log(loading);
   const [error, setError] = useState(null);
   const [hasNextPage, setHasNextPage] = useState(true);
   const limit = 10;
@@ -71,7 +70,7 @@ const LaunchesList = () => {
         Loaded pages: {page - 1}
       </h3>
       {error && <p>Error: {error.message}</p>}
-      <div className="w-full flex flex-col sm:flex-row justify-center items-center sm:space-x-10">
+      <div className="w-full flex flex-col sm:flex-row justify-center items-center">
         <h3 className="text-lg text-white">Order:</h3>
         <button
           className={`rounded-full p-2 ${

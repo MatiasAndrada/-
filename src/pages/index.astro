@@ -3,35 +3,24 @@ import Layout from "../layouts/Layout.astro";
 import Navigation from "../components/navigation/Navigation.astro";
 import Footer from "../components/footer/Footer.astro";
 import { getCompany } from "../services/api";
-import { getPhotosUrl } from "../services/api-photos";
 
 const company = await getCompany();
-
-const photos = await getPhotosUrl("spacex");
 ---
 
 <Layout title="SpaceXmirror">
-  <div class="flex flex-col justify-between h-screen">
-    <svg
-      class="astro-a"
-      width="495"
-      height="623"
-      viewBox="0 0 495 623"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <!-- ... Tu SVG aquí ... -->
-    </svg>
+  <div class="mt-8 md:mt-0 flex flex-col justify-between">
     <div class="md:flex md:justify-around md:items-center text-white">
       <h1
         class="text-4xl text-center mt-4 sm:mt-0 px-6 md:w-1/3 md:text-4xl lg:text-5xl ml-0 lg:ml-20 font-semibold"
       >
-        Welcome to <span class="text-gradient">SpaceXMirror!</span>
+        Welcome to <span
+          class="bg-gradient-to-r from-30% from-indigo-600 via-60% via-violet-500 to-white text-transparent bg-clip-text lg:text-6xl"
+          >SpaceXMirror!</span
+        >
       </h1>
       <div class="md:w-2/3 lg:p-20 flex flex-col justify-center">
         <p
-          class="text-lg p-4 text-center md:text-start md:p-10 lg:text-xl text-slate-300"
+          class="text-lg p-6 text-center md:text-start md:p-8 lg:text-2xl text-slate-200"
         >
           {company.summary}
         </p>
@@ -47,12 +36,12 @@ const photos = await getPhotosUrl("spacex");
           <a
             href="/gallery"
             rel="noopener noreferrer"
-            class="w-fit bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 hover:from-pink-500 hover:via-purple-500 hover:to-red-400 text-white font-bold hover:scale-105 my-4 py-2 px-4 rounded-full"
+            class="w-fit bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 hover:from-pink-500 hover:via-purple-500 hover:to-red-400 transition ease-in-out duration-200 text-white font-bold hover:scale-105 my-4 py-2 px-4 rounded-full"
           >
             Visit Gallery
           </a>
           <!--           <a
-            href="/upcoming-launches"
+            href="/upcoming-launches"s
             rel="noopener noreferrer"
             class="w-fit bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 hover:from-pink-500 hover:via-purple-500 hover:to-red-400 text-white font-bold hover:scale-105 py-2 px-4 rounded-full"
           >
@@ -63,7 +52,7 @@ const photos = await getPhotosUrl("spacex");
     </div>
 
     <div
-      class="flex flex-col justify-center items-center text-center gap-5 md:text-start md:flex-row md:justify-around md:items-start text-slate-300"
+      class="flex flex-col justify-center items-center text-center gap-5 md:text-start md:flex-row md:justify-around md:items-start text-slate-200"
     >
       <div class="justify-self-center">
         <h2 class="text-2xl font-semibold text-white">- Company Info</h2>
@@ -92,7 +81,7 @@ const photos = await getPhotosUrl("spacex");
             <span class="font-semibold text-white">Valuation: {" "}</span> ${
               company.valuation
             }
-             billion
+            billion
           </li>
         </ul>
       </div>
@@ -138,29 +127,3 @@ const photos = await getPhotosUrl("spacex");
     <Footer links={company.links} />
   </div>
 </Layout>
-
-<style>
-  main {
-    width: 100vh;
-    color: white;
-    font-size: 20px;
-    line-height: 1.6;
-  }
-  .astro-a {
-    position: absolute;
-    top: -32px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 220px;
-    height: auto;
-    z-index: -1;
-  }
-
-  .text-gradient {
-    background-image: var(--accent-violet-white);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 400%;
-    background-position: 0%;
-  }
-</style>
