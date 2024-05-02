@@ -1,0 +1,66 @@
+import { c as createAstro, a as createComponent, r as renderTemplate, m as maybeRenderHead, b as renderComponent, F as Fragment } from './astro/server_CY5Ge0ZJ.mjs';
+import 'kleur/colors';
+import 'html-escaper';
+import { $ as $$Link } from './Link_CrCVp1gZ.mjs';
+
+const $$Astro = createAstro();
+const $$RocketDetails = createComponent(async ($$result, $$props, $$slots) => {
+  const Astro2 = $$result.createAstro($$Astro, $$props, $$slots);
+  Astro2.self = $$RocketDetails;
+  let { rocket: Rocket } = Astro2.props;
+  let {
+    name,
+    /*   type, */
+    active,
+    country,
+    company,
+    first_flight,
+    success_rate_pct,
+    description,
+    height,
+    diameter,
+    mass,
+    stages,
+    boosters,
+    cost_per_launch,
+    first_stage,
+    second_stage,
+    engines,
+    landing_legs,
+    payload_weights,
+    wikipedia
+  } = Rocket;
+  const formatedDescription = description.slice(-1) !== "." ? description + "." : description;
+  return renderTemplate`${maybeRenderHead()}<div class="border border-gray-300 border-t-0 rounded-md shadow-md bg-dark text-white"> <div class="min-w-full flex flex-col sm:flex-row items-center gap-6 justify-around my-4"> <div class="md:w-1/3 md:ml-6 text-center sm:text-start"> <h3 class="text-xl md:text-2xl font-semibold mb-2">Information:</h3> <div> <p class="md:text-lg">
+State:
+${active ? renderTemplate`<span class="text-green-500  underline">Active</span>` : renderTemplate`<span class="text-red-500  underline">Inactive</span>`} </p> <p class="md:text-lg">
+Company:
+<span class="text-slate-200"> ${company} </span> </p> <p class="md:text-lg">
+First Flight:
+<span class="text-slate-200"> ${first_flight} </span> </p> <p class="md:text-lg">
+Country:
+<span class="text-slate-200"> ${country} </span> </p> ${success_rate_pct < 45 ? renderTemplate`<p class=" md:text-lg">
+Success Rate:${" "} <span class="text-red-500">${success_rate_pct}%</span> </p>` : success_rate_pct < 75 ? renderTemplate`<p class="md:text-lg">
+Success Rate:${" "} <span class="text-yellow-500">${success_rate_pct}%</span> </p>` : renderTemplate`<p class=" md:text-lg">
+Success Rate:${" "} <span class="text-green-500">${success_rate_pct}%</span> </p>`} </div> </div> <!-- Columna de descripción --> <div class="w-2/3 flex flex-col gap-5 items-center"> <h3 class="text-xl md:text-2xl text-center sm:text-start font-semibold text-white md:p-8">
+Description:
+<span class="text-lg md:text-xl text-slate-200"> ${formatedDescription} </span> </h3> <div class="bg-slate-900 hover:bg-slate-800 text-white font-semibold py-2 px-4 border border-gray-400 rounded shadow"> ${renderComponent($$result, "Link", $$Link, { "to": wikipedia }, { "default": ($$result2) => renderTemplate` Wikipedia ` })} </div> </div> </div>  <div class="min-w-full flex sm:flex-row flex-wrap items-center gap-6 justify-around my-4"> <h3 class="text-xl md:text-2xl font-semibold text-white mb-2">Details:</h3> <div class="mt-2"> <h3 class="text-lg font-semibold text-white">- Rocket Details:</h3> <ul class="list-disc pl-4 text-white"> <li>
+Height: <span class="text-slate-200">${height.meters} meters / ${height.feet} feet</span> </li> <li>
+Diameter: <span class="text-slate-200">${diameter.meters} meters / ${diameter.feet} feet</span> </li> <li>
+Mass: <span class="text-slate-200">${mass.kg} kg / ${mass.lb} lb</span> </li> <li>Stages: <span class="text-slate-200">${stages}</span></li> <li>Boosters: <span class="text-slate-200">${boosters}</span></li> <li>
+Cost per Launch: <span class="text-slate-200">$${cost_per_launch}</span> </li> </ul> </div> <div class="mt-2"> <h3 class="text-lg font-semibold text-white">- Engines:</h3> <ul class="list-disc pl-4 text-white"> <li>Type: <span class="text-slate-200">${engines.type}</span></li> <li>
+Version: <span class="text-slate-200">${engines.version}</span> </li> <li>Layout: <span class="text-slate-200">${engines.layout}</span></li> <li>Thrust vacuum:</li> <li>
+Engine Loss Max: <span class="text-slate-200">${engines.engine_loss_max}</span> </li> <li>
+Propellant 1: <span class="text-slate-200">${engines.propellant_1}</span> </li> <li>
+Propellant 2: <span class="text-slate-200">${engines.propellant_2}</span> </li> <li>
+Thrust to Weight: <span class="text-slate-200">${engines.thrust_to_weight}</span> </li> </ul> </div> <div class="mt-2"> <h3 class="text-lg font-semibold text-white">- Payload Weights:</h3> <ul class="list-disc pl-4 text-white"> ${payload_weights.map((payload, index) => renderTemplate`<li> ${payload.name}:${" "} <span class="text-slate-200"> ${payload.kg} kg / ${payload.lb} lb
+</span> </li>`)} </ul> </div> ${landing_legs.number > 0 && renderTemplate`${renderComponent($$result, "Fragment", Fragment, {}, { "default": ($$result2) => renderTemplate` <h3 class="text-lg font-semibold text-white mt-2">- Landing Legs:</h3> <ul class="list-disc pl-4 text-white"> <li>
+Number: <span class="text-slate-200">${landing_legs.number} </span> </li> <li>
+Material:${" "} <span class="text-slate-200">${landing_legs.material}</span> </li> </ul> ` })}`} </div> </div>  <div class="overflow-x-auto my-4 bg-slate-800 p-2 rounded-lg"> <h3 class="text-2xl font-semibold text-white text-center px-4 py-2 my-3 bg-slate-900 rounded-lg">
+First and Second Stage
+</h3> <div class="table-responsive"> <table class="min-w-full border-collapse table-auto text-white"> <thead> <tr> <th class="border-b-2 p-2 text-center">Stage</th> <th class="border-b-2 p-2 text-center">Thrust vacuum kN/lbf</th> <th class="border-b-2 p-2 text-center">Reusable</th> <th class="border-b-2 p-2 text-center">Engines</th> <th class="border-b-2 p-2 text-center">Fuel Amount Tons</th> <th class="border-b-2 p-2 text-center">Burn Time Sec</th> </tr> </thead> <tbody> <tr> <td class="border-b p-2 text-center">1</td> <td class="border-b p-2 text-center"> ${first_stage.thrust_vacuum.kN} / ${first_stage.thrust_vacuum.lbf} </td> <td class="border-b p-2 text-center"> ${first_stage.reusable ? renderTemplate`<span class="text-green-500 font-semibold">Yes</span>` : renderTemplate`<span class="text-red-500 font-semibold">No</span>`} </td> <td class="border-b p-2 text-center">${first_stage.engines}</td> <td class="border-b p-2 text-center"> ${first_stage.fuel_amount_tons} tons
+</td> <td class="border-b p-2 text-center">${first_stage.burn_time_sec} sec</td> </tr> <tr> <td class="border-b p-2 text-center">2</td> <td class="border-b p-2 text-center"> ${second_stage.thrust.kN} / ${second_stage.thrust.lbf} </td> <td class="border-b p-2 text-center"> ${first_stage.reusable ? renderTemplate`<span class="text-green-500 font-semibold">Yes</span>` : renderTemplate`<span class="text-red-500 font-semibold">No</span>`} </td> <td class="border-b p-2 text-center">${second_stage.engines}</td> <td class="border-b p-2 text-center"> ${second_stage.fuel_amount_tons} tons
+</td> <td class="border-b p-2 text-center">${second_stage.burn_time_sec} sec</td> </tr> </tbody> </table> </div> </div>`;
+}, "C:/Users/Asus/Desktop/codes/astro-spacex/src/components/details/RocketDetails.astro", void 0);
+
+export { $$RocketDetails as $ };
