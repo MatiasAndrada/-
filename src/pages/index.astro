@@ -8,19 +8,19 @@ const company = await getCompany();
 ---
 
 <Layout title="SpaceXmirror">
-  <div class="mt-8 md:mt-0 flex flex-col justify-between">
+  <div class="h-screen mt-8 md:mt-0 flex flex-col justify-between">
     <div class="md:flex md:justify-around md:items-center text-white">
       <h1
-        class="text-4xl text-center mt-4 sm:mt-0 px-6 md:w-1/3 md:text-4xl lg:text-5xl ml-0 lg:ml-20 font-semibold"
+        class="text-4xl text-center mt-4 sm:mt-0 md:w-1/3 md:text-4xl lg:text-5xl ml-0 lg:ml-20 font-semibold"
       >
         Welcome to <span
           class="bg-gradient-to-r from-30% from-indigo-600 via-60% via-violet-500 to-white text-transparent bg-clip-text lg:text-6xl"
           >SpaceXMirror!</span
         >
       </h1>
-      <div class="md:w-2/3 lg:p-20 flex flex-col justify-center">
+      <div class="md:w-2/3 flex flex-col justify-center">
         <p
-          class="text-lg p-6 text-center md:text-start md:p-8 lg:text-2xl text-slate-200"
+          class="text-lg px-8 md:px-0 p-2 lg:p-8 text-center md:text-start lg:text-2xl text-slate-200"
         >
           {company.summary}
         </p>
@@ -36,7 +36,7 @@ const company = await getCompany();
           <a
             href="/gallery"
             rel="noopener noreferrer"
-            class="w-fit bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 hover:from-pink-500 hover:via-purple-500 hover:to-red-400 transition ease-in-out duration-200 text-white font-bold hover:scale-105 my-4 py-2 px-4 rounded-full"
+            class="w-fit bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 hover:from-pink-500 hover:via-purple-500 hover:to-red-400 transition ease-in-out duration-200 text-white font-bold hover:scale-105 py-2 px-4 rounded-full"
           >
             Visit Gallery
           </a>
